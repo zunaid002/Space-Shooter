@@ -1,6 +1,6 @@
 import pygame
 from os.path import join
-from random import randint
+from random import randint, uniform
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, groups):
@@ -9,7 +9,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_frect(center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
 
         self.direction = pygame.math.Vector2()
-        self.speed = 200
+        self.speed = 400
 
         # Colldown
         self.can_shoot = True
@@ -62,10 +62,11 @@ class Meteor(pygame.sprite.Sprite):
         super().__init__(groups)
         self.image = surf
         self.rect = self.image.get_frect(center = pos)
-        self.speed = pygame.math.Vector2(0, 200)
+        self.speed = randint(350, 450)
+        self.direction = pygame.math.Vector2(uniform(-0.5, 0.5), 1)
 
     def update(self, dt):
-        self.rect.center += self.speed * dt
+        self.rect.center += self.direction * self.speed * dt
         if self.rect.top > WINDOW_HEIGHT:
             self.kill() 
 
