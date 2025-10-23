@@ -33,7 +33,7 @@ class Player(pygame.sprite.Sprite):
         # Player input
         recent_key = pygame.key.get_just_pressed()
         if recent_key[pygame.K_SPACE] and self.can_shoot:
-            print("shoot")
+            Laser(all_sprites, laser_surf, self.rect.midtop)
             self.can_shoot = False
             self.laser_shoot_time = pygame.time.get_ticks()
         self.laser_timer()
@@ -43,7 +43,13 @@ class Star(pygame.sprite.Sprite):
         super().__init__(groups)
         self.image = surf
         self.rect = self.image.get_frect(center = (randint(0, WINDOW_WIDTH), randint(0, WINDOW_HEIGHT)))
-    
+
+class Laser(pygame.sprite.Sprite):
+    def __init__(self, groups, surf, pos):
+        super().__init__(groups)
+        self.image = surf
+        self.rect = self.image.get_frect(midbottom = pos)
+
 # General set up
 pygame.init()
 
@@ -56,6 +62,7 @@ running = True
 # Imports
 meteor_surf = pygame.image.load(join('images', 'meteor.png')).convert_alpha()
 star_surf = pygame.image.load(join('images', 'star.png')).convert_alpha()
+laser_surf = pygame.image.load(join('images', 'laser.png')).convert_alpha()
 
 all_sprites = pygame.sprite.Group()
 for i in range(20):
