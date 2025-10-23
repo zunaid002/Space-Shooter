@@ -70,6 +70,19 @@ class Meteor(pygame.sprite.Sprite):
         if self.rect.top > WINDOW_HEIGHT:
             self.kill() 
 
+def collision():
+    global running
+    
+    collision_sprite = pygame.sprite.spritecollide(player, metero_sprite, True)
+    if collision_sprite:
+        print("Game ended")
+        running = False
+    
+    for laser in laser_sptire:
+        collided_sprite = pygame.sprite.spritecollide(laser, metero_sprite, True)
+        if collided_sprite:
+            laser.kill()
+
 # General set up
 pygame.init()
 
@@ -108,10 +121,8 @@ while running:
 
     # Update
     all_sprites.update(dt)
-    for laser in laser_sptire:
-        collided_sprite = pygame.sprite.spritecollide(laser, metero_sprite, True)
-        if collided_sprite:
-            laser.kill()
+
+    collision()
 
     # Draw the game
     display_surface.fill('darkgray')
