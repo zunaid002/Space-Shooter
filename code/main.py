@@ -64,16 +64,24 @@ class Laser(pygame.sprite.Sprite):
 class Meteor(pygame.sprite.Sprite):
     def __init__(self, groups, surf, pos):
         super().__init__(groups)
+        self.original_surf = surf
         self.image = surf
         self.rect = self.image.get_frect(center = pos)
         self.mask = pygame.mask.from_surface(self.image)
         self.speed = randint(350, 450)
         self.direction = pygame.math.Vector2(uniform(-0.5, 0.5), 1)
+        self.rotate = randint(0, 365)
+        self.rotation_angle = randint(-50, 50)
 
     def update(self, dt):
         self.rect.center += self.direction * self.speed * dt
         if self.rect.top > WINDOW_HEIGHT:
             self.kill() 
+        
+        # Rotation
+        self.rotate += self.rotation_angle* dt
+        self.image = pygame.transform.rotozoom(self.original_surf, self.rotate, 1)
+        self.rect = self.image.get_frect(center = self.rect.center)
 
 def collision():
     global running
@@ -94,7 +102,7 @@ def display_score():
     text_rect = text_serf.get_frect(midbottom = (WINDOW_WIDTH / 2, WINDOW_HEIGHT - 20))
 
     display_surface.blit(text_serf, text_rect)
-    pygame.draw.rect(display_surface, 'red', text_rect.inflate(6, 6).move(0, -3), 3, 5)
+    pygame.draw.rect(display_surface, (150,150,150), text_rect.inflate(6, 6).move(0, -3), 3, 5)
 
 # General set up
 pygame.init()
