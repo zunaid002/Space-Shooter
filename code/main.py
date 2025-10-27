@@ -73,13 +73,13 @@ class Meteor(pygame.sprite.Sprite):
 def collision():
     global running
     
-    collision_sprite = pygame.sprite.spritecollide(player, metero_sprite, True)
+    collision_sprite = pygame.sprite.spritecollide(player, meteor_sprite, True)
     if collision_sprite:
         print("Game ended")
         running = False
     
     for laser in laser_sptire:
-        collided_sprite = pygame.sprite.spritecollide(laser, metero_sprite, True)
+        collided_sprite = pygame.sprite.spritecollide(laser, meteor_sprite, True)
         if collided_sprite:
             laser.kill()
 
@@ -99,7 +99,7 @@ laser_surf = pygame.image.load(join('images', 'laser.png')).convert_alpha()
 
 # Sprites
 all_sprites = pygame.sprite.Group()
-metero_sprite = pygame.sprite.Group()
+meteor_sprite = pygame.sprite.Group()
 laser_sptire = pygame.sprite.Group()
 for i in range(20):
     Star(all_sprites, star_surf)
@@ -117,7 +117,7 @@ while running:
             running = False
         if event.type == meteor_event:
             x, y = randint(0, WINDOW_WIDTH), randint(-200, -100)
-            Meteor((all_sprites, metero_sprite), meteor_surf, (x, y))
+            Meteor((all_sprites, meteor_sprite), meteor_surf, (x, y))
 
     # Update
     all_sprites.update(dt)
