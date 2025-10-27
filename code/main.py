@@ -98,6 +98,8 @@ running = True
 meteor_surf = pygame.image.load(join('images', 'meteor.png')).convert_alpha()
 star_surf = pygame.image.load(join('images', 'star.png')).convert_alpha()
 laser_surf = pygame.image.load(join('images', 'laser.png')).convert_alpha()
+font = pygame.font.Font(join("images", "Oxanium-Bold.ttf"), 20)
+my_text = font.render("This is my text", True, "red")
 
 # Sprites
 all_sprites = pygame.sprite.Group()
@@ -130,6 +132,7 @@ while running:
     # Draw the game
     display_surface.fill('darkgray')
     all_sprites.draw(display_surface)
+    display_surface.blit(my_text, (0, 0))
 
     pygame.display.update()
 
