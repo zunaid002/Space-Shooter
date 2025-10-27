@@ -7,6 +7,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__(groups)
         self.image = pygame.image.load(join('images', 'player.png')).convert_alpha()
         self.rect = self.image.get_frect(center = (WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2))
+        self.mask = pygame.mask.from_surface(self.image)
 
         self.direction = pygame.math.Vector2()
         self.speed = 400
@@ -49,6 +50,7 @@ class Laser(pygame.sprite.Sprite):
         super().__init__(groups)
         self.image = surf
         self.rect = self.image.get_frect(midbottom = pos)
+        self.mask = pygame.mask.from_surface(self.image)
 
         self.speed = 300
 
@@ -64,6 +66,7 @@ class Meteor(pygame.sprite.Sprite):
         super().__init__(groups)
         self.image = surf
         self.rect = self.image.get_frect(center = pos)
+        self.mask = pygame.mask.from_surface(self.image)
         self.speed = randint(350, 450)
         self.direction = pygame.math.Vector2(uniform(-0.5, 0.5), 1)
 
@@ -75,7 +78,7 @@ class Meteor(pygame.sprite.Sprite):
 def collision():
     global running
     
-    collision_sprite = pygame.sprite.spritecollide(player, meteor_sprite, True)
+    collision_sprite = pygame.sprite.spritecollide(player, meteor_sprite, True, pygame.sprite.collide_mask)
     if collision_sprite:
         print("Game ended")
         running = False
