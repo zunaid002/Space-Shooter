@@ -101,7 +101,6 @@ laser_surf = pygame.image.load(join('images', 'laser.png')).convert_alpha()
 
 # Sprites
 all_sprites = pygame.sprite.Group()
-
 meteor_sprite = pygame.sprite.Group()
 laser_sptire = pygame.sprite.Group()
 
@@ -122,8 +121,6 @@ while running:
         if event.type == meteor_event:
             x, y = randint(0, WINDOW_WIDTH), randint(-200, -100)
             Meteor((all_sprites, meteor_sprite), meteor_surf, (x, y))
-
-
 
     # Update
     all_sprites.update(dt)
