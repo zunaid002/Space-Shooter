@@ -91,6 +91,7 @@ def display_score():
     text_rect = text_serf.get_frect(midbottom = (WINDOW_WIDTH / 2, WINDOW_HEIGHT - 20))
 
     display_surface.blit(text_serf, text_rect)
+    pygame.draw.rect(display_surface, 'red', text_rect.inflate(6, 6).move(0, -3), 3, 5)
 
 # General set up
 pygame.init()
