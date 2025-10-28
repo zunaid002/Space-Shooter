@@ -58,8 +58,6 @@ class Laser(pygame.sprite.Sprite):
         self.rect.top -= self.speed * dt 
         if self.rect.bottom < 0:
             self.kill()
-        if pygame.sprite.spritecollide(self, meteor_sprite, True):
-            self.kill()
 
 class Meteor(pygame.sprite.Sprite):
     def __init__(self, groups, surf, pos):
@@ -92,11 +90,12 @@ class AnimatedExplosion(pygame.sprite.Sprite):
         self.rect = self.image.get_frect(center = pos)
     
     def update(self, dt):
-        self.frame_index += 1 * dt
-        if self.frame_index > len(self.frames):
+        self.frame_index += 15 * dt
+        if self.frame_index < len(self.frames):
             self.image = self.frames[int(self.frame_index)]
         else:
             self.kill()
+
 def collision():
     global running
     
